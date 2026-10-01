@@ -5,11 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
 
 class MainActivity : ComponentActivity() {
 
@@ -19,36 +17,32 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             MaterialTheme {
-                Lab7()
+                AppRickMorty()
             }
         }
     }
 }
 
 @Composable
-fun Lab7() {
+fun AppRickMorty() {
 
     val navController = rememberNavController()
 
-    val characterDb = remember {
-        CharacterDb()
-    }
-
     NavHost(
         navController = navController,
-        startDestination = LoginDestination
+        startDestination = LoginDestinos
     ) {
 
-        composable<LoginDestination> {
+        composable<LoginDestinos> {
 
             PantallaLogin(
                 onStartClick = {
 
                     navController.navigate(
-                        CharactersDestination
+                        MainDestinos
                     ) {
 
-                        popUpTo<LoginDestination> {
+                        popUpTo<LoginDestinos> {
                             inclusive = true
                         }
 
@@ -58,35 +52,21 @@ fun Lab7() {
             )
         }
 
-        composable<CharactersDestination> {
+        composable<MainDestinos> {
 
-            PantallaPersonajes(
-                characters = characterDb.getAllCharacters(),
-                onCharacterClick = { id ->
+            MainScreen(
+                onLogout = {
 
                     navController.navigate(
-                        CharacterDetailsDestination(
-                            id = id
-                        )
-                    )
-                }
-            )
-        }
+                        LoginDestinos
+                    ) {
 
-        composable<CharacterDetailsDestination> { backStackEntry ->
+                        popUpTo<MainDestinos> {
+                            inclusive = true
+                        }
 
-            val destination =
-                backStackEntry.toRoute<CharacterDetailsDestination>()
-
-            val character =
-                characterDb.getCharacterById(
-                    destination.id
-                )
-
-            Detalles(
-                character = character,
-                onBackClick = {
-                    navController.popBackStack()
+                        launchSingleTop = true
+                    }
                 }
             )
         }
