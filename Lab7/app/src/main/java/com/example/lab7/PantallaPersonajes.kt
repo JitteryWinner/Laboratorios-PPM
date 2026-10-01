@@ -14,7 +14,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import androidx.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,7 +26,7 @@ fun PantallaPersonajes(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Personajes")
+                    Text("Characters")
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -120,47 +119,4 @@ fun CharacterItem(
     }
 
     HorizontalDivider()
-}
-@Preview(
-    showBackground = true,
-    showSystemUi = true,
-    name = "Personajes Preview"
-)
-@Composable
-fun PantallaPersonajesPreview() {
-
-    val personajesEjemplo = listOf(
-        Character(
-            id = 1,
-            name = "Rick Sanchez (C-137)",
-            status = "Vivo",
-            species = "Humano",
-            gender = "Hombre",
-            image = "https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-        ),
-        Character(
-            id = 2,
-            name = "Morty Smith (Prime)",
-            status = "Vivo",
-            species = "Humano",
-            gender = "Hombre",
-            image = "https://rickandmortyapi.com/api/character/avatar/2.jpeg"
-        ),
-        Character(
-            id = 3,
-            name = "Summer Smith (C-131)",
-            status = "Vivo",
-            species = "Humano",
-            gender = "Mujer",
-            image = "https://rickandmortyapi.com/api/character/avatar/3.jpeg"
-        )
-    )
-
-    MaterialTheme {
-
-        PantallaPersonajes(
-            characters = personajesEjemplo,
-            onCharacterClick = {}
-        )
-    }
 }
